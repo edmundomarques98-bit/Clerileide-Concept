@@ -6,7 +6,10 @@ premium e conversão direta em agendamentos pelo WhatsApp.
 ## Estrutura
 
 - Hero editorial com proposta de valor
-- Tratamentos assinatura
+- Tratamentos assinatura com seleção para a sacola
+- Vitrine de produtos por necessidade capilar
+- Sacola persistente com quantidades e finalização pelo WhatsApp
+- Galeria de resultados reais em formato antes e depois
 - Experiência de atendimento em três etapas
 - Apresentação da especialista e reconhecimento Star Pro 2024
 - Perguntas frequentes
