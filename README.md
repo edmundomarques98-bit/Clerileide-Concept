@@ -10,6 +10,7 @@ premium e conversão direta em agendamentos pelo WhatsApp.
 - Vitrine de produtos por necessidade capilar
 - Sacola persistente com quantidades e finalização pelo WhatsApp
 - Galeria de resultados reais em formato antes e depois, com fotos autorizadas
+- Layout responsivo para desktop e celular
 - Experiência de atendimento em três etapas
 - Apresentação da especialista e reconhecimento Star Pro 2024
 - Perguntas frequentes
