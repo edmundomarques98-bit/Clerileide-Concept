@@ -9,7 +9,7 @@ premium e conversão direta em agendamentos pelo WhatsApp.
 - Tratamentos assinatura com seleção para a sacola
 - Vitrine de produtos por necessidade capilar
 - Sacola persistente com quantidades e finalização pelo WhatsApp
-- Galeria de resultados reais em formato antes e depois
+- Galeria de resultados reais em formato antes e depois, com fotos autorizadas
 - Experiência de atendimento em três etapas
 - Apresentação da especialista e reconhecimento Star Pro 2024
 - Perguntas frequentes
