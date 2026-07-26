@@ -21,7 +21,17 @@ const cartCountElement = document.querySelector("[data-cart-count]");
 const cartSummaryElement = document.querySelector("[data-cart-summary]");
 const cartCheckout = document.querySelector("[data-cart-checkout]");
 const cartToast = document.querySelector("[data-cart-toast]");
+const heroSlider = document.querySelector("[data-hero-slider]");
+const heroSlides = [...document.querySelectorAll("[data-hero-slide]")];
+const heroDots = [...document.querySelectorAll("[data-hero-dot]")];
+const heroPrevious = document.querySelector("[data-hero-prev]");
+const heroNext = document.querySelector("[data-hero-next]");
+const heroAutoplayButton = document.querySelector("[data-hero-autoplay]");
+const heroAutoplayIcon = document.querySelector("[data-hero-autoplay-icon]");
+const heroStatus = document.querySelector("[data-hero-status]");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const CART_STORAGE_KEY = "clerileide-concept-sacola";
+const HERO_AUTOPLAY_DELAY = 7000;
 
 const setHeaderState = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -53,6 +63,170 @@ document.addEventListener("keydown", (event) => {
 
 window.addEventListener("scroll", setHeaderState, { passive: true });
 setHeaderState();
+
+let activeHeroSlide = 0;
+let heroAutoplayTimer;
+let heroPointerStart;
+let heroAutoplayDisabled = reduceMotion;
+
+if (reduceMotion && heroAutoplayButton) {
+  heroAutoplayButton.hidden = true;
+}
+
+const setHeroSlide = (requestedIndex, announce = false) => {
+  if (!heroSlides.length) return;
+
+  activeHeroSlide =
+    (requestedIndex + heroSlides.length) % heroSlides.length;
+
+  heroSlides.forEach((slide, index) => {
+    const isActive = index === activeHeroSlide;
+    slide.classList.toggle("is-active", isActive);
+    slide.setAttribute("aria-hidden", String(!isActive));
+    slide.toggleAttribute("inert", !isActive);
+    slide.querySelectorAll("a, button").forEach((control) => {
+      control.tabIndex = isActive ? 0 : -1;
+    });
+  });
+
+  heroDots.forEach((dot, index) => {
+    const isActive = index === activeHeroSlide;
+    dot.classList.toggle("is-active", isActive);
+    dot.setAttribute("aria-selected", String(isActive));
+    dot.tabIndex = isActive ? 0 : -1;
+  });
+
+  if (announce && heroStatus) {
+    heroStatus.textContent =
+      heroSlides[activeHeroSlide]?.getAttribute("aria-label") || "";
+  }
+};
+
+const stopHeroAutoplay = () => {
+  window.clearInterval(heroAutoplayTimer);
+  heroSlider?.classList.add("is-paused");
+};
+
+const startHeroAutoplay = (force = false) => {
+  stopHeroAutoplay();
+
+  const mouseIsOverSlider =
+    window.matchMedia("(hover: hover)").matches &&
+    heroSlider?.matches(":hover");
+  const focusIsInsideSlider = heroSlider?.contains(document.activeElement);
+
+  if (
+    reduceMotion ||
+    heroAutoplayDisabled ||
+    document.hidden ||
+    heroSlides.length < 2 ||
+    (!force && mouseIsOverSlider) ||
+    (!force && focusIsInsideSlider)
+  ) {
+    return;
+  }
+
+  heroSlider?.classList.remove("is-paused");
+  heroAutoplayTimer = window.setInterval(() => {
+    setHeroSlide(activeHeroSlide + 1);
+  }, HERO_AUTOPLAY_DELAY);
+};
+
+const selectHeroSlide = (index) => {
+  setHeroSlide(index, true);
+  startHeroAutoplay();
+};
+
+heroPrevious?.addEventListener("click", () => {
+  selectHeroSlide(activeHeroSlide - 1);
+});
+
+heroNext?.addEventListener("click", () => {
+  selectHeroSlide(activeHeroSlide + 1);
+});
+
+heroAutoplayButton?.addEventListener("click", () => {
+  heroAutoplayDisabled = !heroAutoplayDisabled;
+  heroAutoplayButton.setAttribute(
+    "aria-pressed",
+    String(heroAutoplayDisabled),
+  );
+  heroAutoplayButton.setAttribute(
+    "aria-label",
+    heroAutoplayDisabled
+      ? "Iniciar rotação automática"
+      : "Pausar rotação automática",
+  );
+
+  if (heroAutoplayIcon) {
+    heroAutoplayIcon.textContent = heroAutoplayDisabled ? "▶" : "Ⅱ";
+  }
+
+  if (heroStatus) {
+    heroStatus.textContent = heroAutoplayDisabled
+      ? "Rotação automática pausada."
+      : "Rotação automática iniciada.";
+  }
+
+  if (heroAutoplayDisabled) stopHeroAutoplay();
+  else startHeroAutoplay(true);
+});
+
+heroDots.forEach((dot, index) => {
+  dot.addEventListener("click", () => selectHeroSlide(index));
+  dot.addEventListener("keydown", (event) => {
+    let nextIndex;
+
+    if (event.key === "ArrowLeft") nextIndex = activeHeroSlide - 1;
+    if (event.key === "ArrowRight") nextIndex = activeHeroSlide + 1;
+    if (event.key === "Home") nextIndex = 0;
+    if (event.key === "End") nextIndex = heroSlides.length - 1;
+    if (nextIndex === undefined) return;
+
+    event.preventDefault();
+    setHeroSlide(nextIndex, true);
+    heroDots[activeHeroSlide]?.focus();
+  });
+});
+
+heroSlider?.addEventListener("mouseenter", stopHeroAutoplay);
+heroSlider?.addEventListener("mouseleave", startHeroAutoplay);
+heroSlider?.addEventListener("focusin", stopHeroAutoplay);
+heroSlider?.addEventListener("focusout", (event) => {
+  if (!heroSlider.contains(event.relatedTarget)) startHeroAutoplay();
+});
+
+heroSlider?.addEventListener("pointerdown", (event) => {
+  if (event.pointerType === "mouse") return;
+  heroPointerStart = event.clientX;
+  stopHeroAutoplay();
+});
+
+heroSlider?.addEventListener("pointerup", (event) => {
+  if (heroPointerStart === undefined || event.pointerType === "mouse") return;
+
+  const distance = event.clientX - heroPointerStart;
+  heroPointerStart = undefined;
+
+  if (Math.abs(distance) >= 50) {
+    selectHeroSlide(activeHeroSlide + (distance < 0 ? 1 : -1));
+  } else {
+    startHeroAutoplay();
+  }
+});
+
+heroSlider?.addEventListener("pointercancel", () => {
+  heroPointerStart = undefined;
+  startHeroAutoplay();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) stopHeroAutoplay();
+  else startHeroAutoplay();
+});
+
+setHeroSlide(0);
+startHeroAutoplay();
 
 whatsappLinks.forEach((link) => {
   const service = link.dataset.service;
@@ -326,7 +500,6 @@ renderCart();
 if (year) year.textContent = new Date().getFullYear();
 
 const revealElements = document.querySelectorAll("[data-reveal]");
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (reduceMotion || !("IntersectionObserver" in window)) {
   revealElements.forEach((element) => element.classList.add("is-visible"));

@@ -49,14 +49,20 @@
       rel="stylesheet"
     />
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="preload" href="assets/hero-clerileide-concept.webp" as="image" />
+    <link
+      rel="preload"
+      href="assets/hero-mechas.webp"
+      as="image"
+      type="image/webp"
+      fetchpriority="high"
+    />
     <link
       rel="preload"
       href="assets/logo-clerileide-monogram.webp"
       as="image"
       type="image/webp"
     />
-    <link rel="stylesheet" href="styles.css?v=sacola-resultados-20260726-final" />
+    <link rel="stylesheet" href="styles.css?v=hero-slider-20260726" />
     <title>Clerileide Concept | Hair Designer</title>
   </head>
 
@@ -127,43 +133,287 @@
     </header>
 
     <main id="conteudo">
-      <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <img
-          class="hero-image"
-          src="assets/hero-clerileide-concept.webp"
-          alt="Fotografia editorial de uma mulher com cabelos longos, saudáveis e brilhantes"
-          width="1774"
-          height="887"
-          fetchpriority="high"
-        />
-        <div class="hero-overlay"></div>
-        <div class="container hero-inner">
-          <div class="hero-content" data-reveal>
-            <p class="eyebrow">Hair Designer · Star Pro 2024</p>
-            <h1 id="hero-title">
-              Transformação que começa nos fios e chega à
-              <em>autoestima.</em>
-            </h1>
-            <p class="hero-description">
-              Técnica, diagnóstico e cuidado personalizado para revelar a
-              melhor versão do seu cabelo — com saúde, elegância e identidade.
-            </p>
-            <div class="hero-actions">
-              <a
-                class="button button-primary js-whatsapp"
-                href="https://wa.me/558896028018"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Agendar minha avaliação
-                <span aria-hidden="true">↗</span>
-              </a>
-              <a class="button button-ghost" href="#tratamentos">
-                Conhecer tratamentos
-              </a>
+      <section
+        class="hero"
+        id="inicio"
+        aria-roledescription="carrossel"
+        aria-label="Procedimentos em destaque"
+        data-hero-slider
+      >
+        <div class="hero-slides">
+          <article
+            class="hero-slide is-active"
+            id="hero-slide-mechas"
+            aria-hidden="false"
+            aria-roledescription="slide"
+            aria-label="1 de 4: Mechas"
+            data-hero-slide
+          >
+            <img
+              class="hero-image"
+              src="assets/hero-mechas.webp"
+              alt="Mulher com cabelos longos e mechas loiras em tons champagne"
+              width="1717"
+              height="916"
+              fetchpriority="high"
+            />
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-content">
+                <p class="eyebrow">Mechas personalizadas</p>
+                <h1 id="hero-title">
+                  Luz na medida certa.
+                  <em>Identidade em cada detalhe.</em>
+                </h1>
+                <p class="hero-description">
+                  Iluminação estratégica, tons sob medida e técnica que respeita
+                  a saúde dos fios para um loiro elegante e cheio de dimensão.
+                </p>
+                <div class="hero-actions">
+                  <a
+                    class="button button-primary js-whatsapp"
+                    href="https://wa.me/558896028018"
+                    data-service="mechas personalizadas"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Quero minhas mechas
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a class="button button-ghost" href="#resultados">
+                    Ver resultados
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
+          </article>
+
+          <article
+            class="hero-slide"
+            id="hero-slide-ruivos"
+            aria-hidden="true"
+            aria-roledescription="slide"
+            aria-label="2 de 4: Ruivos"
+            data-hero-slide
+            inert
+          >
+            <img
+              class="hero-image"
+              src="assets/hero-ruivos.webp"
+              alt="Mulher com cabelos longos em ruivo acobreado intenso e luminoso"
+              width="1774"
+              height="887"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-content">
+                <p class="eyebrow">Coloração personalizada</p>
+                <h2>
+                  Ruivos com profundidade.
+                  <em>Cor com personalidade.</em>
+                </h2>
+                <p class="hero-description">
+                  Do acobreado luminoso ao auburn sofisticado: uma tonalidade
+                  criada para harmonizar com você e manter brilho por mais tempo.
+                </p>
+                <div class="hero-actions">
+                  <a
+                    class="button button-primary js-whatsapp"
+                    href="https://wa.me/558896028018"
+                    data-service="coloração ruiva personalizada"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabindex="-1"
+                  >
+                    Encontrar meu ruivo
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a class="button button-ghost" href="#tratamentos" tabindex="-1">
+                    Conhecer o cuidado
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="hero-slide"
+            id="hero-slide-escova"
+            aria-hidden="true"
+            aria-roledescription="slide"
+            aria-label="3 de 4: Escovas"
+            data-hero-slide
+            inert
+          >
+            <img
+              class="hero-image"
+              src="assets/hero-escova.webp"
+              alt="Mulher com cabelo castanho longo, alinhado e finalizado com movimento"
+              width="1823"
+              height="863"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-content">
+                <p class="eyebrow">Escova &amp; finalização</p>
+                <h2>
+                  Movimento impecável.
+                  <em>Brilho que se percebe.</em>
+                </h2>
+                <p class="hero-description">
+                  Polimento, leveza e acabamento profissional para deixar os fios
+                  alinhados, soltos e prontos para qualquer ocasião.
+                </p>
+                <div class="hero-actions">
+                  <a
+                    class="button button-primary js-whatsapp"
+                    href="https://wa.me/558896028018"
+                    data-service="escova e finalização"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabindex="-1"
+                  >
+                    Agendar minha escova
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a class="button button-ghost" href="#tratamentos" tabindex="-1">
+                    Ver serviços
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="hero-slide"
+            id="hero-slide-hidratacao"
+            aria-hidden="true"
+            aria-roledescription="slide"
+            aria-label="4 de 4: Hidratação"
+            data-hero-slide
+            inert
+          >
+            <img
+              class="hero-image"
+              src="assets/hero-hidratacao.webp"
+              alt="Mulher com cabelos escuros, longos, hidratados e intensamente brilhantes"
+              width="1717"
+              height="916"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="hero-overlay"></div>
+            <div class="container hero-inner">
+              <div class="hero-content">
+                <p class="eyebrow">Tratamento profundo</p>
+                <h2>
+                  Hidratação que transforma.
+                  <em>Saúde que aparece.</em>
+                </h2>
+                <p class="hero-description">
+                  Um protocolo definido após diagnóstico para recuperar maciez,
+                  elasticidade e luminosidade sem pesar nos fios.
+                </p>
+                <div class="hero-actions">
+                  <a
+                    class="button button-primary js-whatsapp"
+                    href="https://wa.me/558896028018"
+                    data-service="hidratação capilar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabindex="-1"
+                  >
+                    Cuidar do meu cabelo
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a class="button button-ghost" href="#tratamentos" tabindex="-1">
+                    Ver tratamentos
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
+
+        <div class="hero-slider-controls" aria-label="Controles dos destaques">
+          <button
+            class="hero-arrow"
+            type="button"
+            aria-label="Mostrar procedimento anterior"
+            data-hero-prev
+          >
+            <span aria-hidden="true">←</span>
+          </button>
+          <div class="hero-pagination" role="tablist" aria-label="Escolher procedimento">
+            <button
+              class="hero-dot is-active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="hero-slide-mechas"
+              data-hero-dot
+              data-slide-index="0"
+            >
+              <span>Mechas</span>
+            </button>
+            <button
+              class="hero-dot"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="hero-slide-ruivos"
+              data-hero-dot
+              data-slide-index="1"
+            >
+              <span>Ruivos</span>
+            </button>
+            <button
+              class="hero-dot"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="hero-slide-escova"
+              data-hero-dot
+              data-slide-index="2"
+            >
+              <span>Escovas</span>
+            </button>
+            <button
+              class="hero-dot"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="hero-slide-hidratacao"
+              data-hero-dot
+              data-slide-index="3"
+            >
+              <span>Hidratação</span>
+            </button>
+          </div>
+          <button
+            class="hero-arrow"
+            type="button"
+            aria-label="Mostrar próximo procedimento"
+            data-hero-next
+          >
+            <span aria-hidden="true">→</span>
+          </button>
+          <button
+            class="hero-arrow hero-autoplay-toggle"
+            type="button"
+            aria-label="Pausar rotação automática"
+            aria-pressed="false"
+            data-hero-autoplay
+          >
+            <span aria-hidden="true" data-hero-autoplay-icon>Ⅱ</span>
+          </button>
+        </div>
+
+        <p class="sr-only" aria-live="polite" aria-atomic="true" data-hero-status></p>
 
         <div class="hero-note" aria-hidden="true">
           <span>Beleza</span>
@@ -1010,6 +1260,6 @@
       <span>Agendar</span>
     </a>
 
-    <script src="script.js?v=sacola-resultados-20260726" defer></script>
+    <script src="script.js?v=hero-slider-20260726" defer></script>
   </body>
 </html>

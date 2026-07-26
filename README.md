@@ -5,7 +5,7 @@ premium e conversão direta em agendamentos pelo WhatsApp.
 
 ## Estrutura
 
-- Hero editorial com proposta de valor
+- Hero editorial em slides para mechas, ruivos, escovas e hidratação
 - Tratamentos assinatura com seleção para a sacola
 - Vitrine de produtos por necessidade capilar
 - Sacola persistente com quantidades e finalização pelo WhatsApp
