@@ -31,7 +31,7 @@ const heroAutoplayIcon = document.querySelector("[data-hero-autoplay-icon]");
 const heroStatus = document.querySelector("[data-hero-status]");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const CART_STORAGE_KEY = "clerileide-concept-sacola";
-const HERO_AUTOPLAY_DELAY = 3000;
+const HERO_AUTOPLAY_DELAY = 5000;
 
 const setHeaderState = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
