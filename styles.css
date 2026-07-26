@@ -14,7 +14,7 @@
     sans-serif;
   --container: 1200px;
   --header-height: 88px;
-  --hero-cycle: 3s;
+  --hero-cycle: 5s;
 }
 
 * {
@@ -2395,6 +2395,15 @@ h3 {
   }
 }
 
+@keyframes hero-camera-mobile {
+  from {
+    transform: translate3d(0.25%, 0.12%, 0) scale(1.05);
+  }
+  to {
+    transform: translate3d(-0.2%, -0.08%, 0) scale(1.025);
+  }
+}
+
 @keyframes hero-light-pass {
   0% {
     opacity: 0;
@@ -2669,6 +2678,34 @@ h3 {
 
   .hero-image {
     object-position: 68% center;
+  }
+
+  .hero-slide {
+    transition:
+      opacity 1.25s cubic-bezier(0.22, 0.61, 0.36, 1),
+      visibility 0s linear 1.25s;
+  }
+
+  .hero-slide.is-active {
+    transition-delay: 0s;
+  }
+
+  .hero-image {
+    filter: saturate(0.98) contrast(1.02);
+    will-change: transform;
+  }
+
+  #hero-slide-mechas.is-active .hero-image,
+  #hero-slide-ruivos.is-active .hero-image,
+  #hero-slide-escova.is-active .hero-image,
+  #hero-slide-hidratacao.is-active .hero-image {
+    animation-name: hero-camera-mobile;
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+
+  .hero-slide.is-active .hero-content {
+    animation-duration: 1s;
+    animation-delay: 0.12s;
   }
 
   .hero-overlay {
