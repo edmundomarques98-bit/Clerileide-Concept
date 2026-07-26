@@ -794,6 +794,7 @@ h3 {
   height: auto;
   border: 1px solid rgba(234, 219, 189, 0.18);
   box-shadow: 0 28px 70px rgba(10, 7, 6, 0.36);
+  transform: translateY(-34px);
 }
 
 .award-card {
@@ -1476,6 +1477,7 @@ h3 {
 
   .about-brand-logo {
     width: min(100%, 390px);
+    transform: translateY(-28px);
   }
 
   .award-card {
