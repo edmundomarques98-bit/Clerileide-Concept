@@ -14,6 +14,7 @@
     sans-serif;
   --container: 1200px;
   --header-height: 88px;
+  --hero-cycle: 3s;
 }
 
 * {
@@ -382,9 +383,12 @@ h3 {
 }
 
 .hero-slide {
+  --hero-glow: rgba(234, 219, 189, 0.3);
+  --hero-glow-soft: rgba(201, 170, 116, 0.12);
   display: flex;
   visibility: hidden;
   align-items: center;
+  isolation: isolate;
   opacity: 0;
   pointer-events: none;
   transition:
@@ -392,11 +396,80 @@ h3 {
     visibility 0.9s ease;
 }
 
+.hero-slide::before,
+.hero-slide::after {
+  position: absolute;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+}
+
+.hero-slide::before {
+  inset: -22%;
+  opacity: 0;
+  background: linear-gradient(
+    108deg,
+    transparent 28%,
+    var(--hero-glow-soft) 42%,
+    var(--hero-glow) 49%,
+    transparent 58%
+  );
+  filter: blur(12px);
+  mix-blend-mode: screen;
+  transform: translate3d(-34%, 0, 0) rotate(-4deg);
+  will-change: opacity, transform;
+}
+
+.hero-slide::after {
+  inset: -8%;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 64% 18%, var(--hero-glow) 0 1px, transparent 2px),
+    radial-gradient(circle at 76% 31%, var(--hero-glow-soft) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 88% 22%, var(--hero-glow) 0 1px, transparent 2.5px),
+    radial-gradient(circle at 69% 57%, var(--hero-glow-soft) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 68%, var(--hero-glow) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 94% 48%, var(--hero-glow-soft) 0 1px, transparent 2px);
+  filter: blur(0.2px);
+  mix-blend-mode: screen;
+  transform: translate3d(0, 2%, 0) scale(0.985);
+  will-change: opacity, transform;
+}
+
 .hero-slide.is-active {
   z-index: 1;
   visibility: visible;
   opacity: 1;
   pointer-events: auto;
+}
+
+.hero-slide.is-active::before {
+  animation: hero-light-pass var(--hero-cycle) cubic-bezier(0.2, 0.65, 0.25, 1)
+    both;
+}
+
+.hero-slide.is-active::after {
+  animation: hero-particles var(--hero-cycle) ease-out both;
+}
+
+#hero-slide-mechas {
+  --hero-glow: rgba(255, 235, 192, 0.34);
+  --hero-glow-soft: rgba(221, 191, 132, 0.14);
+}
+
+#hero-slide-ruivos {
+  --hero-glow: rgba(239, 146, 88, 0.3);
+  --hero-glow-soft: rgba(174, 73, 35, 0.14);
+}
+
+#hero-slide-escova {
+  --hero-glow: rgba(247, 228, 197, 0.28);
+  --hero-glow-soft: rgba(210, 177, 132, 0.12);
+}
+
+#hero-slide-hidratacao {
+  --hero-glow: rgba(221, 231, 226, 0.28);
+  --hero-glow-soft: rgba(184, 206, 197, 0.12);
 }
 
 .hero-image,
@@ -408,17 +481,38 @@ h3 {
 }
 
 .hero-image {
+  z-index: 0;
   object-fit: cover;
   object-position: center center;
-  transform: scale(1.045);
-  transition: transform 7s cubic-bezier(0.2, 0.65, 0.25, 1);
+  filter: saturate(0.98) contrast(1.02);
+  transform: scale(1.055);
+  will-change: filter, transform;
 }
 
 .hero-slide.is-active .hero-image {
-  transform: scale(1.015);
+  animation-duration: var(--hero-cycle);
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.2, 0.65, 0.25, 1);
+}
+
+#hero-slide-mechas.is-active .hero-image {
+  animation-name: hero-camera-mechas;
+}
+
+#hero-slide-ruivos.is-active .hero-image {
+  animation-name: hero-camera-ruivos;
+}
+
+#hero-slide-escova.is-active .hero-image {
+  animation-name: hero-camera-escova;
+}
+
+#hero-slide-hidratacao.is-active .hero-image {
+  animation-name: hero-camera-hidratacao;
 }
 
 .hero-overlay {
+  z-index: 2;
   background:
     linear-gradient(
       90deg,
@@ -432,7 +526,7 @@ h3 {
 
 .hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   align-items: center;
   height: 100%;
@@ -566,7 +660,7 @@ h3 {
 }
 
 .hero-dot.is-active::after {
-  animation: hero-progress 7s linear both;
+  animation: hero-progress var(--hero-cycle) linear both;
 }
 
 .hero.is-paused .hero-dot.is-active::after {
@@ -2257,6 +2351,84 @@ h3 {
   }
 }
 
+@keyframes hero-camera-mechas {
+  from {
+    filter: saturate(0.94) contrast(1.02) brightness(0.96);
+    transform: translate3d(1.1%, 0.15%, 0) scale(1.075);
+  }
+  to {
+    filter: saturate(1.02) contrast(1.025) brightness(1.015);
+    transform: translate3d(-0.35%, 0, 0) scale(1.025);
+  }
+}
+
+@keyframes hero-camera-ruivos {
+  from {
+    filter: saturate(0.98) contrast(1.025) brightness(0.96);
+    transform: translate3d(-1%, 0.25%, 0) scale(1.065);
+  }
+  to {
+    filter: saturate(1.06) contrast(1.035) brightness(1.01);
+    transform: translate3d(0.55%, -0.15%, 0) scale(1.025);
+  }
+}
+
+@keyframes hero-camera-escova {
+  from {
+    filter: saturate(0.94) contrast(1.02) brightness(0.965);
+    transform: translate3d(0.7%, 0.55%, 0) scale(1.075);
+  }
+  to {
+    filter: saturate(1) contrast(1.03) brightness(1.01);
+    transform: translate3d(-0.45%, -0.35%, 0) scale(1.025);
+  }
+}
+
+@keyframes hero-camera-hidratacao {
+  from {
+    filter: saturate(0.92) contrast(1.02) brightness(0.96);
+    transform: translate3d(-0.45%, 0.2%, 0) scale(1.025);
+  }
+  to {
+    filter: saturate(1) contrast(1.04) brightness(1.015);
+    transform: translate3d(0.3%, -0.15%, 0) scale(1.065);
+  }
+}
+
+@keyframes hero-light-pass {
+  0% {
+    opacity: 0;
+    transform: translate3d(-34%, 0, 0) rotate(-4deg);
+  }
+  24% {
+    opacity: 0.12;
+  }
+  60% {
+    opacity: 0.24;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(34%, 0, 0) rotate(-4deg);
+  }
+}
+
+@keyframes hero-particles {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 2%, 0) scale(0.985);
+  }
+  30% {
+    opacity: 0.17;
+  }
+  72% {
+    opacity: 0.11;
+  }
+  100% {
+    opacity: 0.04;
+    transform: translate3d(-0.45%, -1%, 0) scale(1.015);
+  }
+}
+
 @keyframes hero-progress {
   to {
     transform: translateX(0);
@@ -2905,6 +3077,13 @@ h3 {
 
   .hero-slide.is-active .hero-image {
     transform: scale(1.015);
+    animation: none;
+    filter: saturate(0.98) contrast(1.02);
+  }
+
+  .hero-slide::before,
+  .hero-slide::after {
+    display: none;
   }
 
   .hero-dot.is-active::after {
