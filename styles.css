@@ -20,6 +20,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
@@ -533,6 +537,7 @@ h3 {
 .section-heading h2,
 .services-heading h2,
 .products-heading h2,
+.results-heading h2,
 .journey-copy h2,
 .about-copy h2,
 .faq-heading h2 {
