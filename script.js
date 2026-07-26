@@ -10,6 +10,18 @@ const menuToggle = document.querySelector("[data-menu-toggle]");
 const navigation = document.querySelector("[data-nav]");
 const whatsappLinks = document.querySelectorAll(".js-whatsapp");
 const year = document.querySelector("[data-year]");
+const cartDrawer = document.querySelector("[data-cart-drawer]");
+const cartBackdrop = document.querySelector(".cart-backdrop");
+const cartOpenButton = document.querySelector("[data-cart-open]");
+const cartCloseButtons = document.querySelectorAll("[data-cart-close]");
+const cartAddButtons = document.querySelectorAll("[data-add-cart]");
+const cartItemsElement = document.querySelector("[data-cart-items]");
+const cartEmptyElement = document.querySelector("[data-cart-empty]");
+const cartCountElement = document.querySelector("[data-cart-count]");
+const cartSummaryElement = document.querySelector("[data-cart-summary]");
+const cartCheckout = document.querySelector("[data-cart-checkout]");
+const cartToast = document.querySelector("[data-cart-toast]");
+const CART_STORAGE_KEY = "clerileide-concept-sacola";
 
 const setHeaderState = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -51,6 +63,265 @@ whatsappLinks.forEach((link) => {
     message,
   )}`;
 });
+
+const loadCart = () => {
+  try {
+    const storedCart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || "[]");
+    if (!Array.isArray(storedCart)) return [];
+
+    return storedCart
+      .filter(
+        (item) =>
+          typeof item?.id === "string" &&
+          typeof item?.name === "string" &&
+          typeof item?.type === "string" &&
+          Number.isFinite(item?.quantity),
+      )
+      .map((item) => ({
+        id: item.id,
+        name: item.name,
+        type: item.type,
+        quantity: Math.min(Math.max(Math.trunc(item.quantity), 1), 99),
+      }));
+  } catch {
+    return [];
+  }
+};
+
+let cart = loadCart();
+let toastTimer;
+let backdropTimer;
+
+const saveCart = () => {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  } catch {
+    // A sacola continua funcionando durante a visita mesmo sem armazenamento local.
+  }
+};
+
+const getCartTotal = () =>
+  cart.reduce((total, item) => total + item.quantity, 0);
+
+const buildCheckoutMessage = () => {
+  const lines = [
+    "Olá, conheci a Clerileide Concept pelo site e gostaria de finalizar esta seleção:",
+    "",
+  ];
+
+  ["Produto", "Serviço"].forEach((type) => {
+    const selectedItems = cart.filter((item) => item.type === type);
+    if (!selectedItems.length) return;
+
+    lines.push(type === "Produto" ? "*Produtos:*" : "*Serviços:*");
+    selectedItems.forEach((item) => {
+      lines.push(`• ${item.quantity}x ${item.name}`);
+    });
+    lines.push("");
+  });
+
+  lines.push(
+    "Pode me informar os valores, a disponibilidade e os próximos passos?",
+  );
+
+  return lines.join("\n");
+};
+
+const createQuantityButton = (label, action, item) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.dataset.cartAction = action;
+  button.dataset.itemId = item.id;
+  button.setAttribute(
+    "aria-label",
+    `${label} quantidade de ${item.name}`,
+  );
+  button.textContent = action === "increase" ? "+" : "−";
+  return button;
+};
+
+const createCartItem = (item) => {
+  const listItem = document.createElement("li");
+  listItem.className = "cart-item";
+
+  const icon = document.createElement("span");
+  icon.className = "cart-item-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.textContent = item.type === "Produto" ? "P" : "S";
+
+  const copy = document.createElement("div");
+  copy.className = "cart-item-copy";
+
+  const type = document.createElement("small");
+  type.textContent = item.type;
+
+  const name = document.createElement("strong");
+  name.textContent = item.name;
+
+  copy.append(type, name);
+
+  const actions = document.createElement("div");
+  actions.className = "cart-item-actions";
+
+  const quantity = document.createElement("div");
+  quantity.className = "cart-quantity";
+  quantity.append(createQuantityButton("Diminuir", "decrease", item));
+
+  const quantityValue = document.createElement("span");
+  quantityValue.textContent = String(item.quantity);
+  quantityValue.setAttribute("aria-label", `${item.quantity} selecionado(s)`);
+  quantity.append(quantityValue);
+  quantity.append(createQuantityButton("Aumentar", "increase", item));
+
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "cart-remove";
+  remove.dataset.cartAction = "remove";
+  remove.dataset.itemId = item.id;
+  remove.textContent = "Remover";
+  remove.setAttribute("aria-label", `Remover ${item.name} da sacola`);
+
+  actions.append(quantity, remove);
+  listItem.append(icon, copy, actions);
+  return listItem;
+};
+
+const renderCart = () => {
+  const total = getCartTotal();
+  const hasItems = total > 0;
+  const itemLabel = `${total} ${total === 1 ? "item" : "itens"}`;
+
+  if (cartItemsElement) {
+    cartItemsElement.replaceChildren(...cart.map(createCartItem));
+    cartItemsElement.hidden = !hasItems;
+  }
+
+  if (cartEmptyElement) cartEmptyElement.hidden = hasItems;
+  if (cartCountElement) cartCountElement.textContent = String(total);
+  if (cartSummaryElement) cartSummaryElement.textContent = itemLabel;
+
+  cartOpenButton?.setAttribute(
+    "aria-label",
+    hasItems
+      ? `Abrir sacola. ${itemLabel} selecionado${total === 1 ? "" : "s"}.`
+      : "Abrir sacola. Nenhum item selecionado.",
+  );
+
+  if (cartCheckout) {
+    cartCheckout.setAttribute("aria-disabled", String(!hasItems));
+    cartCheckout.tabIndex = hasItems ? 0 : -1;
+    cartCheckout.href = hasItems
+      ? `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(
+          buildCheckoutMessage(),
+        )}`
+      : "#";
+  }
+};
+
+const showCartToast = (itemName) => {
+  if (!cartToast) return;
+
+  cartToast.textContent = `${itemName} foi adicionado à sacola.`;
+  cartToast.classList.add("is-visible");
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    cartToast.classList.remove("is-visible");
+  }, 2600);
+};
+
+const openCart = () => {
+  if (!cartDrawer || !cartBackdrop) return;
+
+  closeMenu();
+  window.clearTimeout(backdropTimer);
+  cartBackdrop.hidden = false;
+  cartDrawer.removeAttribute("inert");
+  cartDrawer.setAttribute("aria-hidden", "false");
+  document.body.classList.add("cart-open");
+
+  window.requestAnimationFrame(() => {
+    cartBackdrop.classList.add("is-visible");
+    cartDrawer.classList.add("is-open");
+    cartDrawer.querySelector(".cart-close")?.focus();
+  });
+};
+
+const closeCart = () => {
+  if (!cartDrawer || !cartBackdrop) return;
+
+  cartBackdrop.classList.remove("is-visible");
+  cartDrawer.classList.remove("is-open");
+  cartDrawer.setAttribute("aria-hidden", "true");
+  cartDrawer.setAttribute("inert", "");
+  document.body.classList.remove("cart-open");
+
+  backdropTimer = window.setTimeout(() => {
+    cartBackdrop.hidden = true;
+  }, 400);
+};
+
+cartAddButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const item = {
+      id: button.dataset.itemId,
+      name: button.dataset.itemName,
+      type: button.dataset.itemType,
+    };
+
+    if (!item.id || !item.name || !item.type) return;
+
+    const selectedItem = cart.find((cartItem) => cartItem.id === item.id);
+    if (selectedItem) {
+      selectedItem.quantity = Math.min(selectedItem.quantity + 1, 99);
+    } else {
+      cart.push({ ...item, quantity: 1 });
+    }
+
+    saveCart();
+    renderCart();
+    showCartToast(item.name);
+  });
+});
+
+cartItemsElement?.addEventListener("click", (event) => {
+  const actionButton = event.target.closest("[data-cart-action]");
+  if (!actionButton) return;
+
+  const selectedItem = cart.find(
+    (item) => item.id === actionButton.dataset.itemId,
+  );
+  if (!selectedItem) return;
+
+  if (actionButton.dataset.cartAction === "increase") {
+    selectedItem.quantity = Math.min(selectedItem.quantity + 1, 99);
+  }
+
+  if (actionButton.dataset.cartAction === "decrease") {
+    selectedItem.quantity -= 1;
+    if (selectedItem.quantity < 1) {
+      cart = cart.filter((item) => item.id !== selectedItem.id);
+    }
+  }
+
+  if (actionButton.dataset.cartAction === "remove") {
+    cart = cart.filter((item) => item.id !== selectedItem.id);
+  }
+
+  saveCart();
+  renderCart();
+});
+
+cartOpenButton?.addEventListener("click", openCart);
+cartCloseButtons.forEach((button) => button.addEventListener("click", closeCart));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && cartDrawer?.classList.contains("is-open")) {
+    closeCart();
+    cartOpenButton?.focus();
+  }
+});
+
+renderCart();
 
 if (year) year.textContent = new Date().getFullYear();
 
