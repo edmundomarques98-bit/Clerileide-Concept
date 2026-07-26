@@ -164,17 +164,25 @@ h3 {
   flex-shrink: 0;
 }
 
-.brand-mark {
-  display: grid;
-  width: 43px;
-  height: 43px;
-  place-items: center;
-  font-family: var(--serif);
-  font-size: 2.1rem;
-  font-style: italic;
-  line-height: 1;
-  border: 1px solid currentColor;
-  border-radius: 50%;
+.brand-logo-mark {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 1px solid rgba(234, 219, 189, 0.35);
+  border-radius: 3px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+  transition:
+    width 0.35s ease,
+    height 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.site-header.is-scrolled .brand-logo-mark {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(158, 127, 77, 0.35);
+  box-shadow: 0 7px 18px rgba(23, 17, 15, 0.13);
 }
 
 .brand-copy {
@@ -765,55 +773,27 @@ h3 {
 
 .about-visual {
   position: relative;
+  display: grid;
   min-height: 530px;
+  place-items: center;
+  overflow: hidden;
+  padding: 8%;
   border: 1px solid rgba(234, 219, 189, 0.23);
 }
 
-.about-visual::before,
-.about-visual::after {
+.about-visual::before {
   position: absolute;
   content: "";
-  border: 1px solid rgba(234, 219, 189, 0.12);
-  border-radius: 50%;
+  inset: 5%;
+  border: 1px solid rgba(234, 219, 189, 0.1);
 }
 
-.about-visual::before {
-  inset: 11% 17%;
-}
-
-.about-visual::after {
-  inset: 19% 25%;
-}
-
-.monogram {
-  position: absolute;
+.about-brand-logo {
   z-index: 2;
-  top: 50%;
-  left: 50%;
-  width: 270px;
-  height: 270px;
-  text-align: center;
-  border: 1px solid var(--champagne);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.monogram span {
-  display: block;
-  margin-top: 34px;
-  color: var(--champagne-light);
-  font-family: var(--serif);
-  font-size: 9.5rem;
-  font-style: italic;
-  line-height: 0.95;
-}
-
-.monogram i {
-  color: var(--champagne);
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
+  width: min(100%, 470px);
+  height: auto;
+  border: 1px solid rgba(234, 219, 189, 0.18);
+  box-shadow: 0 28px 70px rgba(10, 7, 6, 0.36);
 }
 
 .award-card {
@@ -1037,6 +1017,12 @@ h3 {
 .brand-footer {
   align-self: flex-start;
   color: white;
+}
+
+.brand-logo-full {
+  width: 290px;
+  height: auto;
+  border: 1px solid rgba(234, 219, 189, 0.13);
 }
 
 .footer-links {
@@ -1304,15 +1290,6 @@ h3 {
     min-height: 450px;
   }
 
-  .monogram {
-    width: 230px;
-    height: 230px;
-  }
-
-  .monogram span {
-    font-size: 7.7rem;
-  }
-
   .footer-top {
     flex-direction: column;
   }
@@ -1332,10 +1309,10 @@ h3 {
     height: 70px;
   }
 
-  .brand-mark {
-    width: 38px;
-    height: 38px;
-    font-size: 1.8rem;
+  .brand-logo-mark,
+  .site-header.is-scrolled .brand-logo-mark {
+    width: 40px;
+    height: 40px;
   }
 
   .brand-copy strong {
@@ -1497,14 +1474,8 @@ h3 {
     margin-right: 17px;
   }
 
-  .monogram {
-    width: 210px;
-    height: 210px;
-  }
-
-  .monogram span {
-    margin-top: 31px;
-    font-size: 7rem;
+  .about-brand-logo {
+    width: min(100%, 390px);
   }
 
   .award-card {
@@ -1533,6 +1504,10 @@ h3 {
   .footer-links {
     grid-template-columns: 1fr 1fr;
     gap: 42px 25px;
+  }
+
+  .brand-logo-full {
+    width: min(100%, 270px);
   }
 
   .footer-links > div:last-child {
