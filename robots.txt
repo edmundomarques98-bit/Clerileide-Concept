@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://edmundomarques98-bit.github.io/Clerileide-Concept/sitemap.xml
