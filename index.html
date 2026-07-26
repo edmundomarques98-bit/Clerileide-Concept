@@ -45,7 +45,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
     <script>document.documentElement.classList.add("js");</script>
@@ -56,7 +56,7 @@
       as="image"
       type="image/webp"
     />
-    <link rel="stylesheet" href="styles.css?v=produtos-20260726" />
+    <link rel="stylesheet" href="styles.css?v=sacola-resultados-20260726" />
     <title>Clerileide Concept | Hair Designer</title>
   </head>
 
@@ -95,6 +95,7 @@
         <nav class="main-nav" id="menu-principal" aria-label="Navegação principal" data-nav>
           <a href="#tratamentos">Tratamentos</a>
           <a href="#produtos">Produtos</a>
+          <a href="#resultados">Resultados</a>
           <a href="#experiencia">Experiência</a>
           <a href="#sobre">A especialista</a>
           <a href="#duvidas">Dúvidas</a>
@@ -107,6 +108,21 @@
             Agendar
           </a>
         </nav>
+
+        <button
+          class="cart-trigger"
+          type="button"
+          aria-label="Abrir sacola. Nenhum item selecionado."
+          aria-controls="cart-drawer"
+          data-cart-open
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.5 8.5h11l1 12h-13l1-12Z" />
+            <path d="M9 9V6.5a3 3 0 0 1 6 0V9" />
+          </svg>
+          <span>Sacola</span>
+          <strong data-cart-count aria-hidden="true">0</strong>
+        </button>
       </div>
     </header>
 
@@ -235,89 +251,93 @@
             <article class="service-row" data-reveal>
               <span class="service-index">01</span>
               <div class="service-title">
-                <p>Cor & luz</p>
+                <p>Cor &amp; luz</p>
                 <h3>Loiros e mechas</h3>
               </div>
               <p class="service-copy">
                 Tons personalizados, iluminação estratégica e acabamento que
                 respeita a estrutura do fio.
               </p>
-              <a
-                class="service-link js-whatsapp"
-                data-service="Loiros e mechas"
-                href="https://wa.me/558896028018"
-                aria-label="Consultar loiros e mechas pelo WhatsApp"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                class="service-link cart-add"
+                type="button"
+                data-add-cart
+                data-item-id="servico-loiros-mechas"
+                data-item-name="Loiros e mechas"
+                data-item-type="Serviço"
+                aria-label="Adicionar Loiros e mechas à sacola"
               >
-                Consultar <span aria-hidden="true">↗</span>
-              </a>
+                Adicionar <span aria-hidden="true">+</span>
+              </button>
             </article>
 
             <article class="service-row" data-reveal>
               <span class="service-index">02</span>
               <div class="service-title">
                 <p>Mudança segura</p>
-                <h3>Transformação & correção</h3>
+                <h3>Transformação &amp; correção</h3>
               </div>
               <p class="service-copy">
                 Planejamento de cor para mudanças conscientes, correções e
                 resultados sofisticados.
               </p>
-              <a
-                class="service-link js-whatsapp"
-                data-service="Transformação e correção de cor"
-                href="https://wa.me/558896028018"
-                aria-label="Consultar transformação e correção de cor pelo WhatsApp"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                class="service-link cart-add"
+                type="button"
+                data-add-cart
+                data-item-id="servico-transformacao-correcao"
+                data-item-name="Transformação e correção de cor"
+                data-item-type="Serviço"
+                aria-label="Adicionar Transformação e correção de cor à sacola"
               >
-                Consultar <span aria-hidden="true">↗</span>
-              </a>
+                Adicionar <span aria-hidden="true">+</span>
+              </button>
             </article>
 
             <article class="service-row" data-reveal>
               <span class="service-index">03</span>
               <div class="service-title">
-                <p>Força & brilho</p>
+                <p>Força &amp; brilho</p>
                 <h3>Tratamento e recuperação</h3>
               </div>
               <p class="service-copy">
                 Protocolos de hidratação, nutrição e reconstrução definidos a
                 partir do diagnóstico capilar.
               </p>
-              <a
-                class="service-link js-whatsapp"
-                data-service="Tratamento e recuperação capilar"
-                href="https://wa.me/558896028018"
-                aria-label="Consultar tratamento e recuperação capilar pelo WhatsApp"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                class="service-link cart-add"
+                type="button"
+                data-add-cart
+                data-item-id="servico-tratamento-recuperacao"
+                data-item-name="Tratamento e recuperação capilar"
+                data-item-type="Serviço"
+                aria-label="Adicionar Tratamento e recuperação capilar à sacola"
               >
-                Consultar <span aria-hidden="true">↗</span>
-              </a>
+                Adicionar <span aria-hidden="true">+</span>
+              </button>
             </article>
 
             <article class="service-row" data-reveal>
               <span class="service-index">04</span>
               <div class="service-title">
-                <p>Forma & movimento</p>
+                <p>Forma &amp; movimento</p>
                 <h3>Corte e finalização</h3>
               </div>
               <p class="service-copy">
                 Design que acompanha seu estilo, sua rotina e o movimento
                 natural do cabelo.
               </p>
-              <a
-                class="service-link js-whatsapp"
-                data-service="Corte e finalização"
-                href="https://wa.me/558896028018"
-                aria-label="Consultar corte e finalização pelo WhatsApp"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                class="service-link cart-add"
+                type="button"
+                data-add-cart
+                data-item-id="servico-corte-finalizacao"
+                data-item-name="Corte e finalização"
+                data-item-type="Serviço"
+                aria-label="Adicionar Corte e finalização à sacola"
               >
-                Consultar <span aria-hidden="true">↗</span>
-              </a>
+                Adicionar <span aria-hidden="true">+</span>
+              </button>
             </article>
           </div>
         </div>
@@ -358,21 +378,22 @@
                   <span>01</span>
                   <small>Maciez · Luminosidade</small>
                 </div>
-                <h3>Hidratação & brilho</h3>
+                <h3>Hidratação &amp; brilho</h3>
                 <p>
                   Cuidados para repor água, devolver toque sedoso e realçar o
                   brilho dos fios opacos ou ressecados.
                 </p>
-                <a
-                  class="product-link js-whatsapp"
-                  data-service="produtos para hidratação e brilho"
-                  href="https://wa.me/558896028018"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Pedir indicação de produtos para hidratação e brilho"
+                <button
+                  class="product-link cart-add"
+                  type="button"
+                  data-add-cart
+                  data-item-id="produto-hidratacao-brilho"
+                  data-item-name="Hidratação e brilho"
+                  data-item-type="Produto"
+                  aria-label="Adicionar produtos para Hidratação e brilho à sacola"
                 >
-                  Pedir indicação <span aria-hidden="true">↗</span>
-                </a>
+                  Adicionar à sacola <span aria-hidden="true">+</span>
+                </button>
               </div>
             </article>
 
@@ -395,21 +416,22 @@
                   <span>02</span>
                   <small>Nutrição · Controle</small>
                 </div>
-                <h3>Nutrição & controle</h3>
+                <h3>Nutrição &amp; controle</h3>
                 <p>
                   Máscaras, óleos e finalizadores para reduzir o aspecto
                   poroso, controlar o frizz e recuperar a maleabilidade.
                 </p>
-                <a
-                  class="product-link js-whatsapp"
-                  data-service="produtos para nutrição e controle do frizz"
-                  href="https://wa.me/558896028018"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Pedir indicação de produtos para nutrição e controle do frizz"
+                <button
+                  class="product-link cart-add"
+                  type="button"
+                  data-add-cart
+                  data-item-id="produto-nutricao-controle"
+                  data-item-name="Nutrição e controle"
+                  data-item-type="Produto"
+                  aria-label="Adicionar produtos para Nutrição e controle à sacola"
                 >
-                  Pedir indicação <span aria-hidden="true">↗</span>
-                </a>
+                  Adicionar à sacola <span aria-hidden="true">+</span>
+                </button>
               </div>
             </article>
 
@@ -431,21 +453,22 @@
                   <span>03</span>
                   <small>Força · Reparação</small>
                 </div>
-                <h3>Reconstrução & força</h3>
+                <h3>Reconstrução &amp; força</h3>
                 <p>
                   Linhas de reparação para cabelos fragilizados, com química ou
                   que precisam recuperar resistência e densidade.
                 </p>
-                <a
-                  class="product-link js-whatsapp"
-                  data-service="produtos para reconstrução e fortalecimento capilar"
-                  href="https://wa.me/558896028018"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Pedir indicação de produtos para reconstrução e fortalecimento"
+                <button
+                  class="product-link cart-add"
+                  type="button"
+                  data-add-cart
+                  data-item-id="produto-reconstrucao-forca"
+                  data-item-name="Reconstrução e força"
+                  data-item-type="Produto"
+                  aria-label="Adicionar produtos para Reconstrução e força à sacola"
                 >
-                  Pedir indicação <span aria-hidden="true">↗</span>
-                </a>
+                  Adicionar à sacola <span aria-hidden="true">+</span>
+                </button>
               </div>
             </article>
 
@@ -468,21 +491,22 @@
                   <span>04</span>
                   <small>Cor · Proteção térmica</small>
                 </div>
-                <h3>Loiros & proteção da cor</h3>
+                <h3>Loiros &amp; proteção da cor</h3>
                 <p>
                   Manutenção para preservar a tonalidade, proteger do calor e
                   manter o loiro luminoso entre os atendimentos.
                 </p>
-                <a
-                  class="product-link js-whatsapp"
-                  data-service="produtos para loiros e proteção da cor"
-                  href="https://wa.me/558896028018"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Pedir indicação de produtos para loiros e proteção da cor"
+                <button
+                  class="product-link cart-add"
+                  type="button"
+                  data-add-cart
+                  data-item-id="produto-loiros-protecao"
+                  data-item-name="Loiros e proteção da cor"
+                  data-item-type="Produto"
+                  aria-label="Adicionar produtos para Loiros e proteção da cor à sacola"
                 >
-                  Pedir indicação <span aria-hidden="true">↗</span>
-                </a>
+                  Adicionar à sacola <span aria-hidden="true">+</span>
+                </button>
               </div>
             </article>
           </div>
@@ -505,6 +529,157 @@
             >
               Receber indicação personalizada
               <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="results section" id="resultados" aria-labelledby="results-title">
+        <div class="container">
+          <div class="results-heading" data-reveal>
+            <div>
+              <p class="eyebrow eyebrow-light">Transformações reais</p>
+              <h2 id="results-title">Resultados que contam uma história.</h2>
+            </div>
+            <div>
+              <p class="display-italic">Técnica que você pode ver.</p>
+              <p>
+                Um espaço para acompanhar resultados anteriores, conhecer os
+                procedimentos realizados e escolher sua próxima transformação
+                com mais segurança.
+              </p>
+            </div>
+          </div>
+
+          <div class="results-grid">
+            <article class="result-card" data-reveal>
+              <div
+                class="result-comparison"
+                role="group"
+                aria-label="Espaço para antes e depois de loiros e mechas"
+              >
+                <div class="result-placeholder">
+                  <span>Antes</span>
+                  <img
+                    src="assets/logo-clerileide-monogram.webp"
+                    alt=""
+                    width="520"
+                    height="520"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                  <small>Foto autorizada</small>
+                </div>
+                <div class="result-placeholder result-placeholder-after">
+                  <span>Depois</span>
+                  <img
+                    src="assets/logo-clerileide-monogram.webp"
+                    alt=""
+                    width="520"
+                    height="520"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                  <small>Foto autorizada</small>
+                </div>
+              </div>
+              <div class="result-copy">
+                <small>Loiros &amp; mechas</small>
+                <h3>Iluminação personalizada</h3>
+                <p>Espaço preparado para publicar um resultado real e explicar a técnica utilizada.</p>
+              </div>
+            </article>
+
+            <article class="result-card" data-reveal>
+              <div
+                class="result-comparison"
+                role="group"
+                aria-label="Espaço para antes e depois de correção de cor"
+              >
+                <div class="result-placeholder">
+                  <span>Antes</span>
+                  <img
+                    src="assets/logo-clerileide-monogram.webp"
+                    alt=""
+                    width="520"
+                    height="520"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                  <small>Foto autorizada</small>
+                </div>
+                <div class="result-placeholder result-placeholder-after">
+                  <span>Depois</span>
+                  <img
+                    src="assets/logo-clerileide-monogram.webp"
+                    alt=""
+                    width="520"
+                    height="520"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                  <small>Foto autorizada</small>
+                </div>
+              </div>
+              <div class="result-copy">
+                <small>Cor &amp; transformação</small>
+                <h3>Correção com planejamento</h3>
+                <p>Espaço preparado para mostrar o antes, o depois e os cuidados adotados no processo.</p>
+              </div>
+            </article>
+
+            <article class="result-card" data-reveal>
+              <div
+                class="result-comparison"
+                role="group"
+                aria-label="Espaço para antes e depois de recuperação capilar"
+              >
+                <div class="result-placeholder">
+                  <span>Antes</span>
+                  <img
+                    src="assets/logo-clerileide-monogram.webp"
+                    alt=""
+                    width="520"
+                    height="520"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                  <small>Foto autorizada</small>
+                </div>
+                <div class="result-placeholder result-placeholder-after">
+                  <span>Depois</span>
+                  <img
+                    src="assets/logo-clerileide-monogram.webp"
+                    alt=""
+                    width="520"
+                    height="520"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                  <small>Foto autorizada</small>
+                </div>
+              </div>
+              <div class="result-copy">
+                <small>Saúde capilar</small>
+                <h3>Recuperação e brilho</h3>
+                <p>Espaço preparado para apresentar a evolução dos fios e o protocolo recomendado.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="results-note" data-reveal>
+            <p>
+              As fotos serão publicadas somente com autorização das clientes,
+              preservando a veracidade de cada resultado.
+            </p>
+            <a
+              class="text-link js-whatsapp"
+              data-service="uma avaliação para minha transformação capilar"
+              href="https://wa.me/558896028018"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Quero ser o próximo resultado <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
@@ -640,6 +815,17 @@
             </details>
             <details data-reveal>
               <summary>
+                Como funciona a sacola?
+                <span aria-hidden="true"></span>
+              </summary>
+              <p>
+                Adicione os produtos e serviços desejados, ajuste as
+                quantidades e finalize pelo WhatsApp. A equipe confirmará
+                valores, estoque, avaliação necessária e horários disponíveis.
+              </p>
+            </details>
+            <details data-reveal>
+              <summary>
                 Como funciona o agendamento?
                 <span aria-hidden="true"></span>
               </summary>
@@ -714,6 +900,7 @@
             <p>Navegue</p>
             <a href="#tratamentos">Tratamentos</a>
             <a href="#produtos">Produtos</a>
+            <a href="#resultados">Resultados</a>
             <a href="#experiencia">Experiência</a>
             <a href="#sobre">A especialista</a>
           </div>
@@ -749,6 +936,66 @@
       </div>
     </footer>
 
+    <div class="cart-backdrop" data-cart-close hidden></div>
+    <aside
+      class="cart-drawer"
+      id="cart-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cart-title"
+      aria-hidden="true"
+      inert
+      data-cart-drawer
+    >
+      <header class="cart-header">
+        <div>
+          <p>Seleção Concept</p>
+          <h2 id="cart-title">Sua sacola</h2>
+        </div>
+        <button type="button" class="cart-close" aria-label="Fechar sacola" data-cart-close>
+          <span aria-hidden="true"></span>
+        </button>
+      </header>
+
+      <div class="cart-content">
+        <div class="cart-empty" data-cart-empty>
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M12 17h24l2 26H10l2-26Z" />
+            <path d="M18 18v-5a6 6 0 0 1 12 0v5" />
+          </svg>
+          <h3>Sua sacola está vazia.</h3>
+          <p>Escolha produtos ou serviços para montar sua seleção.</p>
+          <button type="button" class="text-link" data-cart-close>Continuar escolhendo</button>
+        </div>
+        <ul class="cart-items" data-cart-items aria-live="polite"></ul>
+      </div>
+
+      <footer class="cart-footer">
+        <div class="cart-summary">
+          <span>Itens selecionados</span>
+          <strong data-cart-summary>0 itens</strong>
+        </div>
+        <p>
+          Valores, estoque e horários serão confirmados pela equipe antes da finalização.
+        </p>
+        <a
+          class="button cart-checkout"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled="true"
+          data-cart-checkout
+        >
+          Finalizar pelo WhatsApp
+          <span aria-hidden="true">↗</span>
+        </a>
+      </footer>
+    </aside>
+
+    <div class="cart-toast" role="status" aria-live="polite" data-cart-toast>
+      Item adicionado à sacola.
+    </div>
+
     <a
       class="whatsapp-float js-whatsapp"
       href="https://wa.me/558896028018"
@@ -763,6 +1010,6 @@
       <span>Agendar</span>
     </a>
 
-    <script src="script.js" defer></script>
+    <script src="script.js?v=sacola-resultados-20260726" defer></script>
   </body>
 </html>
