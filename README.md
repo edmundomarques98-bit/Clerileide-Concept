@@ -5,8 +5,10 @@ premium e conversão direta em agendamentos pelo WhatsApp.
 
 ## Estrutura
 
+- Visual premium escuro com detalhes dourados
 - Hero editorial em slides para mechas, ruivos, escovas e hidratação
-- Tratamentos assinatura com seleção para a sacola
+- Barra de diferenciais logo abaixo do hero
+- Tratamentos assinatura em cards com foto e seleção para a sacola
 - Vitrine de produtos por necessidade capilar
 - Sacola persistente com quantidades e finalização pelo WhatsApp
 - Galeria de resultados reais em formato antes e depois, com fotos autorizadas
