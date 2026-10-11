@@ -16,6 +16,7 @@ premium e conversão direta em agendamentos pelo WhatsApp.
 - Experiência de atendimento em três etapas
 - Apresentação da especialista e reconhecimento Star Pro 2024
 - Perguntas frequentes
+- Formulário de agendamento (nome e procedimento) que envia o pedido pelo WhatsApp
 - CTA e links diretos para WhatsApp e Instagram
 
 ## Configuração rápida

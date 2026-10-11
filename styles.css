@@ -1999,8 +1999,8 @@ h3 {
 
 .final-cta-panel {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.05fr) auto;
-  gap: 40px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 32px 40px;
   align-items: center;
   padding: 44px 48px;
   background:
@@ -2044,20 +2044,103 @@ h3 {
   font-size: clamp(2.2rem, 3.2vw, 3.2rem);
 }
 
-.final-cta-copy {
-  padding-left: 40px;
-  border-left: 1px solid var(--line-gold);
+.booking-form {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 16px 20px;
+  align-items: end;
+  padding-top: 32px;
+  border-top: 1px solid var(--line-gold);
 }
 
-.final-cta-copy p {
-  margin-bottom: 22px;
+.booking-intro {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
   color: var(--text-muted);
   font-size: 0.86rem;
-  line-height: 1.75;
+}
+
+.booking-field {
+  display: grid;
+  gap: 8px;
+}
+
+.booking-field label {
+  color: var(--gold);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.booking-field input,
+.booking-field select {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 18px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line-gold);
+  border-radius: var(--radius-small);
+  font: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.25s ease;
+}
+
+.booking-field select {
+  padding-right: 44px;
+  cursor: pointer;
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--gold) 50%),
+    linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+  background-position:
+    calc(100% - 22px) 50%,
+    calc(100% - 16px) 50%;
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+}
+
+.booking-field select:invalid {
+  color: rgba(244, 238, 230, 0.45);
+}
+
+.booking-field option {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.booking-field input::placeholder {
+  color: rgba(244, 238, 230, 0.4);
+}
+
+.booking-field input:focus,
+.booking-field select:focus {
+  border-color: var(--gold);
+  outline: 2px solid rgba(201, 163, 106, 0.3);
+  outline-offset: 1px;
+}
+
+.booking-field [aria-invalid="true"] {
+  border-color: #d9826b;
+}
+
+.booking-error {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+  color: #e7a08c;
+  font-size: 0.78rem;
+}
+
+.booking-error:empty {
+  display: none;
 }
 
 .final-cta-features {
   display: grid;
+  grid-column: 3;
+  grid-row: 1;
   gap: 16px;
   margin: 0;
   padding: 0 0 0 40px;
@@ -2821,9 +2904,9 @@ h3 {
     gap: 32px;
   }
 
-  .final-cta-copy,
   .final-cta-features {
     grid-column: 2;
+    grid-row: auto;
     padding-left: 0;
     border-left: 0;
   }
@@ -3257,7 +3340,6 @@ h3 {
     font-size: clamp(2.3rem, 10vw, 3rem);
   }
 
-  .final-cta-copy,
   .final-cta-features {
     grid-column: auto;
   }
@@ -3265,6 +3347,11 @@ h3 {
   .final-cta-features {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .booking-form {
+    grid-template-columns: 1fr;
+    padding-top: 26px;
   }
 
   .footer-links {

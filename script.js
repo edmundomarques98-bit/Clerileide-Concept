@@ -238,6 +238,44 @@ whatsappLinks.forEach((link) => {
   )}`;
 });
 
+const bookingForm = document.querySelector("[data-booking-form]");
+const bookingError = document.querySelector("[data-booking-error]");
+
+bookingForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const nameField = bookingForm.elements.nome;
+  const serviceField = bookingForm.elements.procedimento;
+  const name = nameField.value.trim();
+  const service = serviceField.value;
+
+  nameField.setAttribute("aria-invalid", String(!name));
+  serviceField.setAttribute("aria-invalid", String(!service));
+
+  if (!name || !service) {
+    bookingError.textContent = !name
+      ? "Informe seu nome para continuar."
+      : "Selecione o procedimento desejado.";
+    (!name ? nameField : serviceField).focus();
+    return;
+  }
+
+  bookingError.textContent = "";
+  const message = `Olá, meu nome é ${name}. Conheci a Clerileide Concept pelo site e gostaria de agendar: ${service}.`;
+  window.open(
+    `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`,
+    "_blank",
+    "noopener",
+  );
+});
+
+bookingForm?.addEventListener("input", (event) => {
+  if (event.target.value.trim()) {
+    event.target.removeAttribute("aria-invalid");
+    bookingError.textContent = "";
+  }
+});
+
 const loadCart = () => {
   try {
     const storedCart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || "[]");
