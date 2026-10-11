@@ -2939,6 +2939,11 @@ h3 {
     width: min(calc(100% - 32px), var(--container));
   }
 
+  .booking-field input,
+  .booking-field select {
+    font-size: 1rem;
+  }
+
   .section {
     padding: 84px 0;
   }
