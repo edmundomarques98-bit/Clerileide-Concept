@@ -62,7 +62,7 @@
       as="image"
       type="image/webp"
     />
-    <link rel="stylesheet" href="styles.css?v=luxe-dark-20261011" />
+    <link rel="stylesheet" href="styles.css?v=agendamento-20261011" />
     <title>Clerileide Concept | Hair Designer</title>
   </head>
 
@@ -1234,21 +1234,39 @@
               <p class="eyebrow eyebrow-light">Seu próximo capítulo</p>
               <h2>Pronta para viver sua melhor versão?</h2>
             </div>
-            <div class="final-cta-copy">
-              <p>
-                Conte o que você deseja para o seu cabelo. A transformação
-                começa com uma boa conversa.
+            <form class="booking-form" data-booking-form novalidate>
+              <p class="booking-intro">
+                Preencha os dados abaixo e envie seu pedido de agendamento
+                pelo WhatsApp.
               </p>
-              <a
-                class="button button-primary js-whatsapp"
-                href="https://wa.me/558896028018"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Falar com a Clerileide
+              <div class="booking-field">
+                <label for="booking-name">Seu nome</label>
+                <input
+                  id="booking-name"
+                  name="nome"
+                  type="text"
+                  autocomplete="name"
+                  placeholder="Como podemos te chamar?"
+                  maxlength="80"
+                  required
+                />
+              </div>
+              <div class="booking-field">
+                <label for="booking-service">Procedimento</label>
+                <select id="booking-service" name="procedimento" required>
+                  <option value="" disabled selected>Selecione uma opção</option>
+                  <option>Corte</option>
+                  <option>Mechas</option>
+                  <option>Hidratação</option>
+                  <option>Escova</option>
+                </select>
+              </div>
+              <button class="button button-primary booking-submit" type="submit">
+                Agendar pelo WhatsApp
                 <span aria-hidden="true">↗</span>
-              </a>
-            </div>
+              </button>
+              <p class="booking-error" role="alert" data-booking-error></p>
+            </form>
             <ul class="final-cta-features">
               <li>
                 <svg viewBox="0 0 48 48" aria-hidden="true">
@@ -1404,6 +1422,6 @@
       <span>Agendar</span>
     </a>
 
-    <script src="script.js?v=luxe-dark-20261011" defer></script>
+    <script src="script.js?v=agendamento-20261011" defer></script>
   </body>
 </html>
