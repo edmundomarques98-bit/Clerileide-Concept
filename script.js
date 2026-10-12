@@ -567,3 +567,119 @@ document.querySelectorAll("[data-accordion] details").forEach((detail) => {
     });
   });
 });
+
+const vitrine = document.querySelector("[data-vitrine]");
+
+const splitVitrineText = (element) => {
+  const label = element.textContent.trim().replace(/\s+/g, " ");
+  let charIndex = 0;
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  textNodes.forEach((node) => {
+    const fragment = document.createDocumentFragment();
+    node.textContent.split(/(\s+)/).forEach((part) => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) {
+        fragment.append(" ");
+        return;
+      }
+      const word = document.createElement("span");
+      word.className = "vitrine-word";
+      [...part].forEach((character) => {
+        const char = document.createElement("span");
+        char.className = "vitrine-char";
+        char.textContent = character;
+        char.style.setProperty("--ci", charIndex);
+        charIndex += 1;
+        word.append(char);
+      });
+      fragment.append(word);
+    });
+    node.replaceWith(fragment);
+  });
+
+  const visual = document.createElement("span");
+  visual.setAttribute("aria-hidden", "true");
+  visual.append(...element.childNodes);
+  const readable = document.createElement("span");
+  readable.className = "sr-only";
+  readable.textContent = label;
+  element.append(visual, readable);
+};
+
+if (vitrine && !reduceMotion) {
+  const chapters = [...vitrine.querySelectorAll("[data-vitrine-chapter]")];
+  const jumpButtons = [...vitrine.querySelectorAll("[data-vitrine-jump]")];
+  const cta = vitrine.querySelector("[data-vitrine-cta]");
+  const ctaLabel = vitrine.querySelector("[data-vitrine-cta-label]");
+  const counter = vitrine.querySelector("[data-vitrine-count]");
+  const stage = vitrine.querySelector("[data-vitrine-stage]");
+  const steps = chapters.length * 2;
+  let currentStep = null;
+  let ticking = false;
+
+  vitrine.querySelectorAll("[data-split]").forEach(splitVitrineText);
+  vitrine.style.setProperty("--vitrine-steps", steps);
+  vitrine.classList.add("is-enhanced");
+
+  const setVitrineStep = (step) => {
+    if (step === currentStep) return;
+    currentStep = step;
+    const activeChapter = step < 0 ? -1 : Math.floor(step / 2);
+
+    chapters.forEach((chapter, index) => {
+      chapter.classList.toggle("is-current", index === activeChapter);
+      chapter.classList.toggle("is-detail", index === activeChapter && step % 2 === 1);
+      chapter.classList.toggle("is-past", index < activeChapter);
+    });
+
+    jumpButtons.forEach((button, index) => {
+      if (index === Math.max(activeChapter, 0)) button.setAttribute("aria-current", "step");
+      else button.removeAttribute("aria-current");
+    });
+
+    const chapter = chapters[Math.max(activeChapter, 0)];
+    if (counter) counter.textContent = String(Math.max(activeChapter, 0) + 1).padStart(2, "0");
+    if (ctaLabel) ctaLabel.textContent = chapter.dataset.cta;
+    if (cta) {
+      const message = `Olá, conheci a Clerileide Concept pelo site e gostaria de saber mais sobre ${chapter.dataset.service}.`;
+      cta.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    }
+  };
+
+  const updateVitrine = () => {
+    ticking = false;
+    const rect = vitrine.getBoundingClientRect();
+    const scrollable = vitrine.offsetHeight - window.innerHeight;
+    const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1);
+    stage?.style.setProperty("--vitrine-progress", progress.toFixed(4));
+
+    // O primeiro capítulo só entra quando a vitrine ocupa boa parte da tela.
+    if (rect.top > window.innerHeight * 0.45 || rect.bottom < window.innerHeight * 0.4) {
+      setVitrineStep(-1);
+      return;
+    }
+    setVitrineStep(Math.min(steps - 1, Math.floor(progress * steps)));
+  };
+
+  const requestVitrineUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateVitrine);
+  };
+
+  jumpButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.vitrineJump);
+      const scrollable = vitrine.offsetHeight - window.innerHeight;
+      const top = vitrine.offsetTop + ((index * 2 + 0.5) / steps) * scrollable;
+      window.scrollTo({ top, behavior: "smooth" });
+    });
+  });
+
+  window.addEventListener("scroll", requestVitrineUpdate, { passive: true });
+  window.addEventListener("resize", requestVitrineUpdate);
+  updateVitrine();
+}
