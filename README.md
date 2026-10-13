@@ -40,3 +40,12 @@ Depois, acesse `http://localhost:4173`.
 
 O projeto é compatível com GitHub Pages. Em **Settings > Pages**, selecione
 **Deploy from a branch**, escolha `main` e a pasta `/ (root)`.
+
+## Segurança
+
+O `index.html` traz uma política de segurança de conteúdo (CSP) na tag
+`<meta http-equiv="Content-Security-Policy">`. Ela só permite scripts do próprio
+site, fontes do Google Fonts e imagens locais. Ao incluir um serviço externo
+(por exemplo, um mapa, pixel ou script de análise), adicione o domínio dele na
+política. Se o pequeno script em linha do `<head>` mudar, atualize o hash
+`sha256-...` correspondente.
